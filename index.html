@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        body.dark {
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark .container {
+            background-color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #007bff;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        body.dark h1 {
+            color: #88ddff;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        #dark-mode-toggle {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+            outline: none;
+        }
+
+        #dark-mode-toggle:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        body.dark #dark-mode-toggle {
+            background-color: #6c757d;
+        }
+
+        body.dark #dark-mode-toggle:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Theme Switcher</h1>
+        <p>This page demonstrates a simple light/dark theme toggle.</p>
+        <p>Click the button to change the theme.</p>
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const body = document.body;
+
+            // Set initial button text based on current theme (defaulting to light)
+            if (body.classList.contains('dark')) {
+                toggleButton.textContent = 'Toggle Light Mode';
+            } else {
+                toggleButton.textContent = 'Toggle Dark Mode';
+            }
+
+            toggleButton.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                // Update button text based on the new theme
+                if (body.classList.contains('dark')) {
+                    toggleButton.textContent = 'Toggle Light Mode';
+                } else {
+                    toggleButton.textContent = 'Toggle Dark Mode';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
