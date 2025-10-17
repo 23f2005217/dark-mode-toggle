@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Mode Toggle</title>
+    <title>Dark Mode Toggle & Calculator</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -49,7 +49,6 @@
             cursor: pointer;
         }
 
-        /* Basic checkbox styling - can be enhanced for a custom toggle switch look */
         #dark-mode-toggle {
             width: 20px;
             height: 20px;
@@ -63,6 +62,152 @@
 
         p {
             margin-bottom: 1em;
+        }
+
+        /* Calculator Styles */
+        .calculator-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 40px;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #eee;
+        }
+
+        body.dark .calculator-container {
+            background-color: #3d424b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #555;
+        }
+
+        .calculator-container h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        body.dark .calculator-container h2 {
+            color: #e0e0e0;
+        }
+
+        .calculator-display {
+            background-color: #f0f0f0;
+            color: #333;
+            font-size: 2.5em;
+            padding: 15px;
+            text-align: right;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            min-height: 1.2em; /* Ensure consistent height */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        body.dark .calculator-display {
+            background-color: #1c1f24;
+            color: #e0e0e0;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .calc-button {
+            background-color: #e0e0e0;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+ */
+            user-select: none; /* Standard */
+        }
+
+        body.dark .calc-button {
+            background-color: #555;
+            color: #e0e0e0;
+        }
+
+        .calc-button:hover {
+            background-color: #d0d0d0;
+        }
+
+        body.dark .calc-button:hover {
+            background-color: #666;
+        }
+
+        .calc-button.operator {
+            background-color: #ff9500;
+            color: #fff;
+        }
+
+        body.dark .calc-button.operator {
+            background-color: #ff9500;
+            color: #fff;
+        }
+
+        .calc-button.operator:hover {
+            background-color: #e08000;
+        }
+
+        body.dark .calc-button.operator:hover {
+            background-color: #e08000;
+        }
+
+        .calc-button.clear {
+            background-color: #ff3b30; /* Red for clear */
+            color: #fff;
+        }
+
+        body.dark .calc-button.clear {
+            background-color: #ff3b30;
+            color: #fff;
+        }
+
+        .calc-button.clear:hover {
+            background-color: #e02a20;
+        }
+
+        body.dark .calc-button.clear:hover {
+            background-color: #e02a20;
+        }
+
+        .calc-button.equals {
+            background-color: #007aff; /* Blue for equals */
+            color: #fff;
+            grid-column: span 2; /* Make equals button span two columns */
+        }
+
+        body.dark .calc-button.equals {
+            background-color: #007aff;
+            color: #fff;
+        }
+
+        .calc-button.equals:hover {
+            background-color: #006ae6;
+        }
+
+        body.dark .calc-button.equals:hover {
+            background-color: #006ae6;
+        }
+
+        .calc-button.zero {
+            grid-column: span 2; /* Make zero button span two columns */
         }
     </style>
 </head>
@@ -79,6 +224,36 @@
         <p>Welcome to this minimalist web page. You can toggle between light and dark themes using the switch above.</p>
         <p>This content is here to demonstrate how the page's appearance changes when the dark mode is activated. The background and text colors will adjust to provide a more comfortable viewing experience depending on your preference.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <section class="calculator-container">
+            <h2>Simple Calculator</h2>
+            <div class="calculator-display" id="calculator-display">0</div>
+            <div class="calculator-buttons">
+                <button class="calc-button clear" data-action="clear">C</button>
+                <button class="calc-button operator" data-action="percent">%</button>
+                <button class="calc-button operator" data-action="sqrt">√</button>
+                <button class="calc-button operator" data-action="divide">/</button>
+
+                <button class="calc-button digit">7</button>
+                <button class="calc-button digit">8</button>
+                <button class="calc-button digit">9</button>
+                <button class="calc-button operator" data-action="multiply">*</button>
+
+                <button class="calc-button digit">4</button>
+                <button class="calc-button digit">5</button>
+                <button class="calc-button digit">6</button>
+                <button class="calc-button operator" data-action="subtract">-</button>
+
+                <button class="calc-button digit">1</button>
+                <button class="calc-button digit">2</button>
+                <button class="calc-button digit">3</button>
+                <button class="calc-button operator" data-action="add">+</button>
+
+                <button class="calc-button digit zero">0</button>
+                <button class="calc-button digit" data-action="decimal">.</button>
+                <button class="calc-button equals" data-action="calculate">=</button>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -89,30 +264,217 @@
             // Function to apply or remove the dark class
             const toggleDarkMode = () => {
                 body.classList.toggle('dark');
-                // Optional: Save preference to localStorage
-                // if (body.classList.contains('dark')) {
-                //     localStorage.setItem('theme', 'dark');
-                // } else {
-                //     localStorage.setItem('theme', 'light');
-                // }
+                // Save preference to localStorage
+                if (body.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
             };
 
             // Add event listener to the toggle switch
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('change', toggleDarkMode);
 
-                // Optional: Load theme preference from localStorage on page load
-                // const savedTheme = localStorage.getItem('theme');
-                // if (savedTheme === 'dark') {
-                //     body.classList.add('dark');
-                //     darkModeToggle.checked = true;
-                // } else {
-                //     body.classList.remove('dark');
-                //     darkModeToggle.checked = false;
-                // }
+                // Load theme preference from localStorage on page load
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    body.classList.add('dark');
+                    darkModeToggle.checked = true;
+                } else {
+                    body.classList.remove('dark');
+                    darkModeToggle.checked = false;
+                }
             } else {
                 console.error('Dark mode toggle element not found!');
             }
+
+            // --- Calculator Logic ---
+            const calculatorDisplay = document.getElementById('calculator-display');
+            const calculatorButtons = document.querySelector('.calculator-buttons');
+
+            let displayValue = '0';
+            let firstOperand = null;
+            let operator = null;
+            let waitingForSecondOperand = false;
+
+            function updateDisplay() {
+                // Limit display length to prevent overflow, using a simple heuristic
+                const maxLength = 12; // Max characters to display
+                if (displayValue.length > maxLength && !displayValue.includes('Error')) {
+                    const num = parseFloat(displayValue);
+                    if (isNaN(num)) {
+                         calculatorDisplay.textContent = displayValue; // If not a number, display as is
+                    } else if (Math.abs(num) > 99999999999 || Math.abs(num) < 0.0000001 && num !== 0) {
+                        calculatorDisplay.textContent = num.toExponential(5); // Use scientific notation for very large/small numbers
+                    } else {
+                        calculatorDisplay.textContent = num.toPrecision(maxLength - 2); // Adjust precision
+                    }
+                    // If still too long after toPrecision, use ellipsis or further truncation (simplified for minimal app)
+                    if (calculatorDisplay.textContent.length > maxLength) {
+                        calculatorDisplay.textContent = calculatorDisplay.textContent.substring(0, maxLength);
+                    }
+                } else {
+                    calculatorDisplay.textContent = displayValue;
+                }
+            }
+
+            function inputDigit(digit) {
+                if (displayValue.includes('Error')) {
+                    clearCalculator(); // Clear error state before new input
+                }
+                if (waitingForSecondOperand) {
+                    displayValue = digit;
+                    waitingForSecondOperand = false;
+                } else {
+                    displayValue = displayValue === '0' ? digit : displayValue + digit;
+                }
+                updateDisplay();
+            }
+
+            function inputDecimal() {
+                if (displayValue.includes('Error')) {
+                    clearCalculator();
+                }
+                if (waitingForSecondOperand) {
+                    displayValue = '0.';
+                    waitingForSecondOperand = false;
+                    updateDisplay();
+                    return;
+                }
+                if (!displayValue.includes('.')) {
+                    displayValue += '.';
+                }
+                updateDisplay();
+            }
+
+            function clearCalculator() {
+                displayValue = '0';
+                firstOperand = null;
+                operator = null;
+                waitingForSecondOperand = false;
+                updateDisplay();
+            }
+
+            function performOperation(op, a, b) {
+                switch (op) {
+                    case '+': return a + b;
+                    case '-': return a - b;
+                    case '*': return a * b;
+                    case '/': 
+                        if (b === 0) {
+                            return 'Error: Div by 0';
+                        }
+                        return a / b;
+                    default: return b;
+                }
+            }
+
+            function handleOperator(nextOperator) {
+                const inputValue = parseFloat(displayValue);
+
+                if (displayValue.includes('Error')) {
+                    // Cannot continue calculation if in error state
+                    return;
+                }
+
+                if (firstOperand === null && !isNaN(inputValue)) {
+                    firstOperand = inputValue;
+                } else if (operator) {
+                    const result = performOperation(operator, firstOperand, inputValue);
+                    if (typeof result === 'string' && result.includes('Error')) {
+                        displayValue = result;
+                        firstOperand = null;
+                        operator = null;
+                        waitingForSecondOperand = true;
+                        updateDisplay();
+                        return;
+                    }
+                    displayValue = String(result);
+                    firstOperand = result;
+                }
+
+                waitingForSecondOperand = true;
+                operator = nextOperator;
+                updateDisplay();
+            }
+
+            function calculate() {
+                if (firstOperand === null || operator === null || waitingForSecondOperand || displayValue.includes('Error')) {
+                    return; // Nothing to calculate or in error state
+                }
+
+                const inputValue = parseFloat(displayValue);
+                const result = performOperation(operator, firstOperand, inputValue);
+                
+                if (typeof result === 'string' && result.includes('Error')) {
+                    displayValue = result;
+                } else {
+                    displayValue = String(result);
+                }
+                
+                firstOperand = null; 
+                operator = null;
+                waitingForSecondOperand = true;
+                updateDisplay();
+            }
+
+            function handleSpecialOperation(action) {
+                if (displayValue.includes('Error')) {
+                    return; // Cannot perform operations if in error state
+                }
+
+                let currentNum = parseFloat(displayValue);
+                if (isNaN(currentNum)) return;
+
+                if (action === 'sqrt') {
+                    if (currentNum < 0) {
+                        displayValue = 'Error: Neg SqRt';
+                        firstOperand = null;
+                        operator = null;
+                    } else {
+                        displayValue = String(Math.sqrt(currentNum));
+                    }
+                } else if (action === 'percent') {
+                    if (firstOperand !== null && operator !== null && !waitingForSecondOperand) {
+                        // Example: 100 + 10% -> 100 + (100 * 0.10)
+                        // The current number is a percentage of the first operand
+                        const percentageValue = firstOperand * (currentNum / 100);
+                        displayValue = String(percentageValue);
+                    } else {
+                        // Standard percentage: 100% -> 1
+                        displayValue = String(currentNum / 100);
+                    }
+                }
+                waitingForSecondOperand = true; // After a special operation, next digit input should clear display
+                updateDisplay();
+            }
+
+            calculatorButtons.addEventListener('click', (event) => {
+                const { target } = event;
+                if (!target.matches('button')) {
+                    return;
+                }
+
+                if (target.classList.contains('digit')) {
+                    inputDigit(target.textContent);
+                } else if (target.dataset.action === 'decimal') {
+                    inputDecimal();
+                } else if (target.dataset.action === 'clear') {
+                    clearCalculator();
+                } else if (target.dataset.action === 'calculate') {
+                    calculate();
+                } else if (target.classList.contains('operator')) {
+                    const action = target.dataset.action;
+                    if (action === 'percent' || action === 'sqrt') {
+                        handleSpecialOperation(action);
+                    } else {
+                        handleOperator(action);
+                    }
+                }
+            });
+
+            updateDisplay(); // Initialize display
         });
     </script>
 </body>
